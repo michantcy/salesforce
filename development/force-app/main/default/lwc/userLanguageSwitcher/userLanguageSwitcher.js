@@ -1,10 +1,12 @@
 import { LightningElement, wire } from "lwc";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getAvailableLanguages from '@salesforce/apex/UserLanguageSwitcherController.GetAvailableLanguages'; 
+import getAvailableLanguages from '@salesforce/apex/UserLanguageSwitcherController.getAvailableLanguages'; 
+import changeUserLanguage from '@salesforce/apex/UserLanguageSwitcherController.changeUserLanguage';
 
 export default class UserLanguageSwitcher extends LightningElement {
     languageOptions;
-    value;
+    selectedValue;
+    isButtonDisabled = true;
 
     connectedCallback() {
         // Call the Apex method to fetch available languages
@@ -15,14 +17,35 @@ export default class UserLanguageSwitcher extends LightningElement {
             })
             .catch(error => {
                 // Handle errors
+                this.showToast('Error fetching available languages',error.message,'fail');
                 console.error('Error fetching available languages:', error);
             });
     }
 
 
-    handleSelectedLanguageChange(event) {
-        this.value = event.detail.value;
-                
+    handleSelectedLanguageChange(event) {        
+        this.selectedValue = event.detail.value;                
+        if(this.selectedValue != null || this.selectedValue != undefined){
+            this.isButtonDisabled = false;
+        }
+        else{
+            this.isButtonDisabled = true;
+        }
+    }
+
+    changeLanguageButtonClick(){
+        // Call the Apex method to fetch available languages
+        changeUserLanguage({newLanguage:this.selectedValue})
+            .then(result => {
+                this.showToast('Language Changed!','','success');
+                this.isButtonDisabled = true;
+                window.location.reload();
+            })
+            .catch(error => {
+                // Handle errors
+                this.showToast('Error updating user language',error.message,'fail');
+                console.error('Error updating user language:', JSON.stringify(error));
+            });   
     }
 
     showToast(title, message, variant) {

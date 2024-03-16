@@ -35,7 +35,7 @@ export default class DownloadRecordFilesQuickAction extends NavigationMixin(Ligh
              })
     }
 
-    showToast(title, message, variant, mode) {
+    showToast(title, message, variant) {
         const evt = new ShowToastEvent({
             title: title,
             message: message,
