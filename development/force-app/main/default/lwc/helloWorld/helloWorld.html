@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="HelloWorld" icon-name="custom:custom14">
+      <div class="slds-m-around_medium">
+        <p>Hello, {greeting}!</p>
+        <lightning-input label="Name" value={greeting} onchange={changeHandler}></lightning-input>
+      </div>    
+    <div class="slds-m-around_medium">
+      <lightning-combobox
+      name="progress"
+      label="Status"
+      value={comboboxValue}
+      placeholder="Select Progress"
+      options={options}
+      onchange={handleComboboxChange} ></lightning-combobox>
+
+<p>Selected value is: {comboboxValue}</p>
+    </div>
+  </lightning-card>
+
+  <lightning-button label="Navigate" onclick={navigateToWebPage}></lightning-button>
+  </template>

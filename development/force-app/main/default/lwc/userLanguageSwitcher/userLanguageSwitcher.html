@@ -1,0 +1,14 @@
+<template>
+    <lightning-card  title="User Language Switcher">
+        <lightning-button label="New" slot="actions"></lightning-button>
+        <div class="slds-m-around_medium">
+            <lightning-combobox
+            name="userlanguage"
+            label="Available User Languages"
+            value={value}
+            placeholder="Select Language"
+            options={languageOptions}
+            onchange={handleSelectedLanguageChange} ></lightning-combobox>  
+        </div>    
+    </lightning-card>
+</template>

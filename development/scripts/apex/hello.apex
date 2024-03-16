@@ -5,6 +5,8 @@
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+Map<String, String> languageCodes = new Map<String, String>();
+for (PicklistEntry entry : User.LanguageLocaleKey.getDescribe().getPicklistValues()){
+system.debug(entry.getValue() + ' - ' + entry.getLabel());
+}
+  
